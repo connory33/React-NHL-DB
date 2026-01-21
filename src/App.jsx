@@ -6,6 +6,7 @@ function App() {
   return (
     <div className="App">
       <h1>React NHL Database</h1>
+      {/* Trigger deployment */}
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
