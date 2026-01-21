@@ -22,6 +22,22 @@ jobs:
       - name: Build
         run: npm run build
       
+      - name: Verify secrets are set
+        run: |
+          if [ -z "${{ secrets.CPANEL_HOST }}" ]; then
+            echo "ERROR: CPANEL_HOST secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.CPANEL_USER }}" ]; then
+            echo "ERROR: CPANEL_USER secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.CPANEL_PASSWORD }}" ]; then
+            echo "ERROR: CPANEL_PASSWORD secret is not set"
+            exit 1
+          fi
+          echo "All secrets are set"
+      
       - name: Deploy to cPanel via SFTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
