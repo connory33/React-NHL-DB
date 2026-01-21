@@ -7,6 +7,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+      CPANEL_USER: ${{ secrets.CPANEL_USER }}
+      CPANEL_PASSWORD: ${{ secrets.CPANEL_PASSWORD }}
     steps:
       - uses: actions/checkout@v3
       
@@ -24,15 +28,15 @@ jobs:
       
       - name: Verify secrets are set
         run: |
-          if [ -z "${{ secrets.CPANEL_HOST }}" ]; then
+          if [ -z "$CPANEL_HOST" ]; then
             echo "ERROR: CPANEL_HOST secret is not set"
             exit 1
           fi
-          if [ -z "${{ secrets.CPANEL_USER }}" ]; then
+          if [ -z "$CPANEL_USER" ]; then
             echo "ERROR: CPANEL_USER secret is not set"
             exit 1
           fi
-          if [ -z "${{ secrets.CPANEL_PASSWORD }}" ]; then
+          if [ -z "$CPANEL_PASSWORD" ]; then
             echo "ERROR: CPANEL_PASSWORD secret is not set"
             exit 1
           fi
